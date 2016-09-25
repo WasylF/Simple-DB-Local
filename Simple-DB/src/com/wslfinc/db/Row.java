@@ -23,4 +23,10 @@ public class Row implements Serializable {
     public void set(int index, String value) {
         items.set(index, value);
     }
+
+    public String[] toArray() {
+        String[] array = new String[items.size()];
+        array = items.toArray(array);
+        return array;
+    }
 }
