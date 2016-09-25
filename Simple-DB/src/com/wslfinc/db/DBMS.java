@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 public class DBMS implements Serializable {
 
     private static DBMS instance;
+    private final Map<String, Base> bases;
 
     private DBMS() {
         bases = new HashMap<>();
@@ -36,8 +38,6 @@ public class DBMS implements Serializable {
         }
         return instance;
     }
-
-    private Map<String, Base> bases;
 
     public boolean serialize() {
         try {
@@ -54,7 +54,7 @@ public class DBMS implements Serializable {
 
     private static boolean deserialize() {
         try {
-            FileInputStream fis = new FileInputStream("temp.out");
+            FileInputStream fis = new FileInputStream(PATH_DBMS);
             ObjectInputStream oin = new ObjectInputStream(fis);
             instance = (DBMS) oin.readObject();
             return true;
@@ -62,5 +62,33 @@ public class DBMS implements Serializable {
             System.err.println("Unsuccessful deserialization!" + ex.toString());
         }
         return false;
+    }
+
+    public boolean createDB(String dbName) {
+        if (bases.containsKey(dbName)) {
+            return false;
+        }
+
+        Base newBase = new Base(dbName);
+        bases.put(dbName, newBase);
+        return true;
+    }
+
+    public Base getDB(String dbName) {
+        if (bases.containsKey(dbName)) {
+            return bases.get(dbName);
+        }
+
+        return null;
+    }
+
+    public void removeDB(String dbName) {
+        if (bases.containsKey(dbName)) {
+            bases.remove(dbName);
+        }
+    }
+
+    public ArrayList<String> getDBNames() {
+        return new ArrayList<>(bases.keySet());
     }
 }
