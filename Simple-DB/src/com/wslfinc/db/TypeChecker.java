@@ -26,6 +26,10 @@ public class TypeChecker {
      * @return does value matches to type
      */
     public static boolean check(String value, String type) {
+        if (value == null) {
+            return false;
+        }
+        
         if (type.equals("integer")) {
             return isInteger(value);
         }
