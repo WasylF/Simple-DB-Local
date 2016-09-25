@@ -113,4 +113,8 @@ public class Table implements Serializable {
     public ArrayList<String> getColumnNames() {
         return columnNames;
     }
+
+    public boolean isFinalized() {
+        return finalizedTable;
+    }
 }
