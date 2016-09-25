@@ -105,4 +105,12 @@ public class Table implements Serializable {
 
         return SUCCESSFUL_STATUS;
     }
+
+    public ArrayList<Row> getRows() {
+        return rows;
+    }
+
+    public ArrayList<String> getColumnNames() {
+        return columnNames;
+    }
 }
