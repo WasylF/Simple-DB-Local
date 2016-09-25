@@ -13,6 +13,7 @@ public class Constants {
     public static final Set<String> DATA_TYPES;
     public static final int MAX_STRING_LENGTH = 255;
     public static final String SUCCESSFUL_STATUS = "good";
+    public static final String PATH_DBMS = "E:\\DB\\" + "DBMS.sdb";
 
     static {
         DATA_TYPES = new HashSet<>(Arrays.asList("integer", "real", "char",
