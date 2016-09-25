@@ -1,6 +1,7 @@
 package com.wslfinc.db;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,6 +20,7 @@ public class Base implements Serializable {
     }
 
     public void createTable(String tableName) {
+        // TODO: add checking for uniq table caption
         Table newTable = new Table(tableName);
         tables.put(tableName, newTable);
     }
@@ -38,8 +40,7 @@ public class Base implements Serializable {
         return name;
     }
 
-    void serialize(String PATH_DBMS) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> getTablesNames() {
+        return new ArrayList<>(tables.keySet());
     }
-
 }
