@@ -1,5 +1,6 @@
 package com.wslfinc.db;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -7,7 +8,7 @@ import java.util.TreeMap;
  *
  * @author Wsl_F
  */
-public class Base {
+public class Base implements Serializable {
 
     private final Map<String, Table> tables;
     private final String name;
@@ -35,6 +36,10 @@ public class Base {
 
     public String getName() {
         return name;
+    }
+
+    void serialize(String PATH_DBMS) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

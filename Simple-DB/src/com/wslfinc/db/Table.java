@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static com.wslfinc.db.Constants.*;
+import java.io.Serializable;
 
 /**
  *
  * @author Wsl_F
  */
-public class Table {
+public class Table implements Serializable {
 
     private final String name;
     private final ArrayList<String> columnNames;

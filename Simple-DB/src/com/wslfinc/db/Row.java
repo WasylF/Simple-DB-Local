@@ -1,5 +1,6 @@
 package com.wslfinc.db;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author Wsl_F
  */
-public class Row {
+public class Row implements Serializable {
 
     ArrayList<String> items;
 
