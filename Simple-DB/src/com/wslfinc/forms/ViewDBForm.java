@@ -14,7 +14,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  * @author Wsl_F
  */
 public class ViewDBForm extends javax.swing.JFrame {
-    
+
     private boolean editAble;
     private Base db;
     private DefaultListModel listModel;
@@ -32,7 +32,7 @@ public class ViewDBForm extends javax.swing.JFrame {
         initMyComponents();
         this.setTitle("View DB: " + db.getName());
     }
-    
+
     private void initMyComponents() {
         jButton1.setEnabled(editAble);
         jButton1.setVisible(editAble);
@@ -40,7 +40,7 @@ public class ViewDBForm extends javax.swing.JFrame {
         jButton2.setVisible(editAble);
         addTablesToList();
     }
-    
+
     private void addTablesToList() {
         jList1.removeAll();
         listModel = new DefaultListModel();
@@ -158,21 +158,21 @@ public class ViewDBForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         String tableName = JOptionPane.showInputDialog("Enter table name");
         db.createTable(tableName);
         addTablesToList();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        
+
     }//GEN-LAST:event_jButton1MouseClicked
-    
+
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        
+
         if (evt.getButton() == 1 && evt.getClickCount() == 2) {
-            
+
             String tableName = jList1.getSelectedValue();
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -182,20 +182,20 @@ public class ViewDBForm extends javax.swing.JFrame {
                     viewTableForm.setVisible(true);
                 }
             });
-            
+
         }
-        
+
         if (evt.getButton() != 1 && evt.getClickCount() == 1) {
             firstOperand = jList1.getSelectedValue();
         }
-        
+
         if (firstOperand != null
                 && evt.getButton() == 1 && evt.getClickCount() == 1) {
             secondOperand = jList1.getSelectedValue();
             performOperation();
         }
     }//GEN-LAST:event_jList1MouseClicked
-    
+
     private void performOperation() {
         if (currentOperation == null || firstOperand == null || secondOperand == null) {
             currentOperation = null;
@@ -203,41 +203,41 @@ public class ViewDBForm extends javax.swing.JFrame {
             secondOperand = null;
             return;
         }
-        
+
         Table newTable = null;
         if (currentOperation.equals("Subs")) {
             newTable = Table.difference(db.getTable(firstOperand), db.getTable(secondOperand));
         } else {
             newTable = Table.cartesianProduct(db.getTable(firstOperand), db.getTable(secondOperand));
         }
-        
+
         db.addTable(newTable);
         currentOperation = null;
         firstOperand = null;
         secondOperand = null;
         addTablesToList();
     }
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        JOptionPane.showMessageDialog(null, "Right clicked on first operand and double right clicked on second operand");
+
+        JOptionPane.showMessageDialog(null, "Right clicked on first operand and than left clicked on second operand");
         currentOperation = "Subs";
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        JOptionPane.showMessageDialog(null, "Right clicked on first operand and double right clicked on second operand");
+
+        JOptionPane.showMessageDialog(null, "Right clicked on first operand and than left clicked on second operand");
         currentOperation = "Mult";
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         String tableName = jList1.getSelectedValue();
         db.removeTable(tableName);
         addTablesToList();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
