@@ -43,4 +43,8 @@ public class Base implements Serializable {
     public ArrayList<String> getTablesNames() {
         return new ArrayList<>(tables.keySet());
     }
+
+    public void addTable(Table t) {
+        tables.put(t.getName(), t);
+    }
 }
