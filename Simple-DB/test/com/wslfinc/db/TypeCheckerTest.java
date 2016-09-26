@@ -60,7 +60,6 @@ public class TypeCheckerTest {
         assertEquals(expResult, result);
     }
 
-
     /**
      * Test of checkTypeCaption method, of class TypeChecker.
      */

@@ -29,7 +29,7 @@ public class TypeChecker {
         if (value == null) {
             return false;
         }
-        
+
         if (type.equals("integer")) {
             return isInteger(value);
         }
