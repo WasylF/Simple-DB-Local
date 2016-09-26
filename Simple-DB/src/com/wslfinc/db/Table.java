@@ -190,4 +190,25 @@ public class Table implements Serializable {
 
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Table t = (Table) o;
+        if (columnNames.size() == t.columnNames.size() && rows.size() == t.rows.size()) {
+            for (int i = rows.size() - 1; i >= 0; i--) {
+                for (int j = columnNames.size() - 1; j >= 0; j--) {
+                    if (!rows.get(i).get(j).equals(t.rows.get(i).get(j))) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        return false;
+    }
 }
