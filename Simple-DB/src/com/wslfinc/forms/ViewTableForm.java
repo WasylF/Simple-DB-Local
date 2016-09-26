@@ -19,7 +19,7 @@ import javax.swing.table.TableModel;
  * @author Wsl_F
  */
 public class ViewTableForm extends javax.swing.JFrame {
-    
+
     private final boolean editAble;
     private final Base db;
     private final Table table;
@@ -33,12 +33,13 @@ public class ViewTableForm extends javax.swing.JFrame {
      * @param db data base
      */
     public ViewTableForm(boolean editAble, Base db, Table table) {
+        this.setTitle("View table: " + table.getName());
         this.editAble = editAble;
         this.db = db;
         this.table = table;
         initComponents();
         fillTable();
-        
+
         if (editAble) {
             jButton1.setEnabled(!table.isFinalized());
             jButton2.setEnabled(!table.isFinalized());
@@ -50,31 +51,31 @@ public class ViewTableForm extends javax.swing.JFrame {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
             jButton3.setVisible(false);
-            
+
             jTable4.setEnabled(false);
             jTable4.setVisible(false);
         }
     }
-    
+
     private void fillTable() {
         ArrayList<String> cn = table.getColumnNames();
         Object[] columnNames = new String[cn.size()];
         columnNames = cn.toArray(columnNames);
-        
+
         ArrayList<Row> rows = table.getRows();
         Object[][] data = new String[rows.size()][];
         for (int i = rows.size() - 1; i >= 0; i--) {
             data[i] = rows.get(i).toArray();
         }
-        
+
         jTable1.removeAll();
         tabelmodel = new DefaultTableModel(data, columnNames);
 
         //jTable1 = new JTable(data, columnNames);
         jTable1.setModel(tabelmodel);
-        
+
         Object[][] data2 = new String[cn.size()][1];
-        
+
         jTable4.removeAll();
         tabelmodel2 = new DefaultTableModel(columnNames, 1);
         jTable4.setModel(tabelmodel2);
@@ -193,17 +194,17 @@ public class ViewTableForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         String columnName = JOptionPane.showInputDialog("Enter column name");
         String columnType = JOptionPane.showInputDialog("Enter column type");
-        
+
         String res = table.addColumn(columnName, columnType);
         System.out.println(res);
         fillTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         table.finalizeTable();
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
@@ -212,20 +213,19 @@ public class ViewTableForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         ArrayList<String> newRow = new ArrayList<>();
-        
+
         int columnNum = tabelmodel2.getColumnCount();
         for (int i = 0; i < columnNum; i++) {
             newRow.add((String) tabelmodel2.getValueAt(0, i));
         }
-        
+
         String res = table.addRow(newRow);
         System.out.println(res);
-        
+
         fillTable();
     }//GEN-LAST:event_jButton3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -97,9 +97,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
