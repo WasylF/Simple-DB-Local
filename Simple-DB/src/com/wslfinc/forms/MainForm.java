@@ -1,6 +1,12 @@
 package com.wslfinc.forms;
 
 import com.wslfinc.db.DBMS;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -9,7 +15,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  * @author Wsl_F
  */
 public class MainForm extends javax.swing.JFrame {
-
+    
     private DBMS dbms;
 
     /**
@@ -18,6 +24,10 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm(DBMS dbms) {
         this.dbms = dbms;
         initComponents();
+        setLayout(new BorderLayout());
+        JLabel background = new JLabel(new ImageIcon("images//back.png"));
+        add(background);
+        background.setLayout(new FlowLayout());
     }
 
     /**
@@ -30,14 +40,39 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
+        jMenuItem3.setText("jMenuItem3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        jButton1.setText("View data bases");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        jButton2.setText("Manage data bases");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jMenu2.setText("File");
 
@@ -59,51 +94,111 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("About");
+
+        jMenuItem4.setText("Task");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem5.setText("Authors");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SelectDBForm selectDBForm = new SelectDBForm(true, dbms);
-                selectDBForm.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                selectDBForm.setVisible(true);
-            }
-        });
-
+        viewDBs(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        viewDBs(false);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    
+    private void viewDBs(boolean editAble) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                SelectDBForm selectDBForm = new SelectDBForm(false, dbms);
+                SelectDBForm selectDBForm = new SelectDBForm(editAble, dbms);
                 selectDBForm.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 selectDBForm.setVisible(true);
             }
         });
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        viewDBs(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        viewDBs(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+        JOptionPane.showMessageDialog(null, "Authors of this incredibly cool and"
+                + " simple database management system are:"
+                + " Vasyl Franchuk and Maria Harchenko");
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
+        String task = "2-3) Розробка локальної (нерозподіленої) версії СУТБД (із власною реалізацією класів \"Таблиця\" та \"База\"). Обов'язкові при виконанні пункти:\n"
+                + "\n"
+                + "Розробка (власних!) класів для понять \"Таблиця\", \"База\" та, можливо, деяких інших класів, спряжених із поняттям \"Таблиця\" (наприклад, \"Схема таблиці\", \"Атрибут\", \"Рядок таблиці\" тощо).\n"
+                + "Створення UML-діаграми класів (з наявними між класами відношеннями).\n"
+                + "Проведення unit-тестування. Надати 3..* тести, один з яких має бути призначеним для тестуванням “індивідуальної” (варіантної) операції з розділу III.\n"
+                + "Забезпечення дружнього інтерфейсу системи.";
+        
+        JOptionPane.showMessageDialog(null, task);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }
