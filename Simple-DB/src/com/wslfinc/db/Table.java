@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import static com.wslfinc.db.Constants.*;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  *
@@ -116,5 +117,77 @@ public class Table implements Serializable {
 
     public boolean isFinalized() {
         return finalizedTable;
+    }
+
+    public static Table difference(Table a, Table b) {
+        boolean flag = false;
+        if (a.columnTypes.size() != b.columnTypes.size()) {
+            flag = true;
+        }
+        if (!flag) {
+            for (int i = a.columnTypes.size() - 1; !flag && i >= 0; i--) {
+                if (!a.columnTypes.get(i).equals(b.columnTypes.get(i))) {
+                    flag = true;
+                }
+            }
+        }
+
+        Table result = new Table(a.getName() + "-" + b.getName());
+        for (int i = 0; i < a.columnTypes.size(); i++) {
+            result.addColumn(a.columnNames.get(i), a.columnTypes.get(i));
+        }
+        result.finalizeTable();
+
+        if (flag) {
+            for (int i = 0; i < a.rows.size(); i++) {
+                result.addRow(Arrays.asList(a.rows.get(i).toArray()));
+            }
+        } else {
+            for (int i = 0; i < a.rows.size(); i++) {
+                boolean contains = false;
+                for (int j = 0; !contains && j < b.rows.size(); j++) {
+                    boolean equals = true;
+                    for (int k = a.columnTypes.size() - 1; equals && k >= 0; k--) {
+                        if (!a.rows.get(i).get(k).equals(b.rows.get(j).get(k))) {
+                            equals = false;
+                        }
+                        contains |= equals;
+                    }
+                }
+                if (!contains) {
+                    result.addRow(Arrays.asList(a.rows.get(i).toArray()));
+                }
+            }
+
+        }
+        return result;
+    }
+
+    public static Table cartesianProduct(Table a, Table b) {
+        Table result = new Table(a.getName() + "*" + b.getName());
+
+        for (int i = 0; i < a.columnTypes.size(); i++) {
+            result.addColumn("#" + a.columnNames.get(i), a.columnTypes.get(i));
+        }
+
+        for (int i = 0; i < b.columnTypes.size(); i++) {
+            result.addColumn("$" + b.columnNames.get(i), b.columnTypes.get(i));
+        }
+
+        result.finalizeTable();
+
+        for (int i = 0; i < a.rows.size(); i++) {
+            String[] rowA = a.rows.get(i).toArray();
+
+            for (int j = 0; j < b.rows.size(); j++) {
+                String[] rowB = b.rows.get(j).toArray();
+                ArrayList<String> rowResult = new ArrayList<>(Arrays.asList(rowA));
+                rowResult.addAll(new ArrayList<>(Arrays.asList(rowB)));
+
+                result.addRow(rowResult);
+            }
+        }
+
+        return result;
     }
 }
